@@ -1,0 +1,7 @@
+To compile and execute the program, run the following commands:
+
+cd src/
+javac -classpath ../lib/json-20160212.jar *.java
+java -cp .:../lib/json-20160212.jar RecommendationFinder
+
+
