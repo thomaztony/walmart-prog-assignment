@@ -45,7 +45,7 @@ public class RecommendationFinder {
             reccs.add(new Review(recc_id, api_key));
         }
 
-        Collections.sort(reccs, Collections.reverseOrder(new ReviewCompare()));
+        Collections.sort(reccs, Collections.reverseOrder());
 
         return reccs;
     }
