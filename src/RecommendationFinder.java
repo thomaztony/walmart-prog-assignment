@@ -27,17 +27,18 @@ public class RecommendationFinder {
     }
 
 
-    private String getProductId(){
-        String url = String.format("http://api.walmartlabs.com/v1/search?apiKey=%s&query=%s", api_key, search_product);
+    private Integer getProductId(){
+        String query = search_product.replaceAll("\\s+", "%20");
+        String url = String.format("http://api.walmartlabs.com/v1/search?apiKey=%s&query=%s", api_key, query);
         JSONObject response = new JSONObject(HttpRequest.get(url));
         JSONObject product = response.getJSONArray("items").getJSONObject(0);
-        return product.getString("itemId");
+        return product.getInt("itemId");
     }
 
 
     public ArrayList<Review> findRecommendations(){
-        String product_id = "42120600"; // currently hard coded because the search api is down
-        String url = String.format("http://api.walmartlabs.com/v1/nbp?apiKey=%s&itemId=%s", api_key, product_id);
+        Integer product_id = getProductId();
+        String url = String.format("http://api.walmartlabs.com/v1/nbp?apiKey=%s&itemId=%d", api_key, product_id);
         JSONArray response = new JSONArray(HttpRequest.get(url));
         int length = response.length() < 10 ? response.length(): 10;
 
@@ -49,7 +50,7 @@ public class RecommendationFinder {
                 Thread.currentThread().interrupt();
             }
 
-            String recc_id = String.valueOf(response.getJSONObject(i).getInt("itemId"));
+            Integer recc_id = response.getJSONObject(i).getInt("itemId");
             reccs.add(new Review(recc_id, api_key));
         }
 
@@ -79,7 +80,7 @@ public class RecommendationFinder {
         Scanner user_input = new Scanner(System.in);
         String search_product;
         System.out.print("Enter a product name: ");
-        search_product = user_input.nextLine();
+        search_product = user_input.nextLine().trim();
 
         System.out.println("Searching for Recommendations...");
         RecommendationFinder rf = new RecommendationFinder(search_product);
