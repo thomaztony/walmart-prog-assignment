@@ -22,18 +22,26 @@ public class RecommendationFinder {
         String query = search_product.replaceAll("\\s+", "%20");
         String url = String.format("http://api.walmartlabs.com/v1/search?apiKey=%s&query=%s", api_key, query);
         JSONObject response = new JSONObject(HttpRequest.get(url));
-        JSONObject product = response.getJSONArray("items").getJSONObject(0);
-        return product.getInt("itemId");
+        if (response.has("items")) {
+            JSONObject product = response.getJSONArray("items").getJSONObject(0);
+            return product.getInt("itemId");
+        } else {
+            return -1;
+        }
     }
 
 
     public ArrayList<Review> findRecommendations(){
+        ArrayList<Review> reccs = new ArrayList<>();
+
         Integer product_id = getProductId();
+        if (product_id == -1){
+            return reccs;
+        }
         String url = String.format("http://api.walmartlabs.com/v1/nbp?apiKey=%s&itemId=%d", api_key, product_id);
         JSONArray response = new JSONArray(HttpRequest.get(url));
         int length = response.length() < 10 ? response.length(): 10;
 
-        ArrayList<Review> reccs = new ArrayList<>();
         for (int i=0; i < length; i++){
             try {
                 Thread.sleep(200);
