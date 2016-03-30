@@ -1,7 +1,7 @@
-# Overview
+## Overview
 In progress...
 
-# Instructions for Running Source Code
+## Running Solution
 To compile and execute the solution, run the following commands:
 
 ``` bash
