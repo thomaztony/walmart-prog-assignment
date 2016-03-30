@@ -1,5 +1,5 @@
 ## Overview
-There are four main classes. The RecommendationFinder class is the main class, which takes in user input and utilizes
+There are three general classes. The RecommendationFinder class is the main class, which takes in user input and utilizes
 the other classes to generate the list of recommended products. The Review and ReviewCompare class is primarily
 separated so that I could use a custom comparator to sort the list of products I received from the ProductRecommendation
 API. My criteria for higher ranking involved first checking if reviewStatistics existed. If so, then the average rating
