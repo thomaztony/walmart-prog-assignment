@@ -6,15 +6,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 
-/*
-    1. Search for products based upon a user-provided search string
-
-    2. Use the first item in the search response as input for a product recommendation search
-
-    3. Retrieve reviews of the first 10 product recommendations
-
-    4. Rank order the recommended products based upon the review sentiments
-*/
 
 public class RecommendationFinder {
     private String api_key = "ep7t6jg5npsedx4nj2mqh2d5";
