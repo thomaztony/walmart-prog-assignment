@@ -1,10 +1,10 @@
 # Overview
-## In progress...
+In progress...
 
 # Instructions for Running Source Code
 To compile and execute the solution, run the following commands:
 
-``` java
+``` bash
 cd src/
 javac -classpath ../lib/json-20160212.jar *.java
 java -cp .:../lib/json-20160212.jar RecommendationFinder
